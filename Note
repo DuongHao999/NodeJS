@@ -1,0 +1,9 @@
+# /** ĐẶT LOCALHOST:3000 THÌ NÓ TRỎ THẲNG TỚI THƯ MỤC PUBLIC */
+ app.use(express.static(path.join(__dirname, '/public')));
+
+# RENDER SCSS TO CSS IN PUBLIC FOLDER
+-  add comment to package.json file
+- syntax:
+    node-sass [options] <input> [output]
+- EX:
+"watch": "node-sass src/resources/scss/app.scss src/public/css/app.css",

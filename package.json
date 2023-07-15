@@ -2,9 +2,11 @@
   "name": "nodejs_first_project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon ./index.js ",
+    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+    "start": "nodemon src/index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +21,10 @@
   "homepage": "https://github.com/DuongHao999/NodeJS#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "node-sass": "^9.0.0"
   }
 }
