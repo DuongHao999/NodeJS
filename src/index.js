@@ -5,6 +5,7 @@ import { engine } from 'express-handlebars';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import route from './routes/index.js'; // neeed to import full path
+import connect from './config/db/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,6 +13,10 @@ const __dirname = path.dirname(__filename);
 // console.log(__dirname);
 const app = express();
 const port = 3000;
+
+/**connect DB */
+connect();
+
 /** ĐẶT LOCALHOST:3000 THÌ NÓ TRỎ THẲNG TỚI THƯ MỤC PUBLIC */
 app.use(express.static(path.join(__dirname, '/public')));
 

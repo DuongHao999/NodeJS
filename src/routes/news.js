@@ -3,7 +3,7 @@ import { index, show } from '../app/controllers/NewController.js';
 
 const newsRouter = express.Router();
 
-newsRouter.use('/:slug', show);
-newsRouter.use('/', index); // đường dẫn gốc phải đặt sau cùng
+newsRouter.get('/:slug', show);
+newsRouter.get('/', index); // đường dẫn gốc phải đặt sau cùng
 
 export default newsRouter;
