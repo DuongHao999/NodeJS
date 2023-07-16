@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Example App - Home</title>
-</head>
-
-<body>
-    <h1>HOME PAGE</h1>
-</body>
-
-</html>
+<div class="mt-4">
+    <div class="row">
+        {{#each courses}}
+        <div class=".col-sm-6 col-lg-4">
+            <div class="card card-course-item">
+                {{!-- Access has been denied to resolve the property "image" because it is not an "own property" of its
+                parent. --}}
+                {{!-- Sẽ bị lỗi trên do hbs nó không cho phép truy cập --}}
+                <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                    <a href="#" class="btn btn-primary">Buy Course</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

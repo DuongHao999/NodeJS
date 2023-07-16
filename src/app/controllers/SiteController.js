@@ -1,12 +1,23 @@
 import CourseModel from "../models/Course.js";
+import { multipleMoongoseToObject } from "../util/moongose.js";
 
 // [GET] /news
-export async function index(req, res) {
-    // res.render('home');
+export function index(req, res, next) {
+    CourseModel.find()
+        .then(
+            courses => {
+                // console.log(courses);
 
-    CourseModel.find();
-    const instance = await CourseModel.find();
-    res.json(instance);
+                // Xử lý lỗi không thể truy cập properties courses 
+                // const coursesObj = courses.map((course => {
+                //     return course.toObject();
+                // }));
+
+                res.render('home', { courses: multipleMoongoseToObject(courses) });
+            }
+        )
+        .catch(next);
+    // res.json(instance);
 }
 
 export function search(req, res) {
