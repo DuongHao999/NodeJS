@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/DuongHao999/NodeJS#readme",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
     "mongoose": "^7.3.4",
+    "mongoose-slug-generator": "^1.0.4",
     "nodemon": "^3.0.1"
   },
   "devDependencies": {

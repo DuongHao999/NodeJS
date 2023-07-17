@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import route from './routes/index.js'; // neeed to import full path
 import connect from './config/db/index.js';
+import bodyParser from 'body-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,17 @@ const port = 3000;
 
 /**connect DB */
 connect();
+
+/** SỬ DỤNG BODY PARSER ĐỂ KHÁC PHỤC TÌNH TRẠNG UNDEFINED KHI NHẬN POST REQUEST */
+// app.use(bodyParser.json());
+// app.use(
+//     bodyParser.urlencoded({
+//         extended: true,
+//     }),
+// );
+
+app.use(express.json()); // For JSON bodies
+app.use(express.urlencoded({ extended: true })); // For URL-encoded bodies
 
 /** ĐẶT LOCALHOST:3000 THÌ NÓ TRỎ THẲNG TỚI THƯ MỤC PUBLIC */
 app.use(express.static(path.join(__dirname, '/public')));

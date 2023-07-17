@@ -7,3 +7,19 @@
     node-sass [options] <input> [output]
 - EX:
 "watch": "node-sass src/resources/scss/app.scss src/public/css/app.css",
+
+
+# SỬ DỤNG BODY PARSER ĐỂ KHÁC PHỤC TÌNH TRẠNG UNDEFINED KHI NHẬN POST REQUEST */
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    }),
+);
+
+or: 
+app.use(express.json()); // For JSON bodies
+app.use(express.urlencoded({ extended: true })); // For URL-encoded bodies
+
+
+# Model phải chứa đầy đủ các field giống như DB, nếu không thì sẽ bị miss data
