@@ -73,3 +73,15 @@ export function update(req, res, next) {
         )
         .catch(next);
 }
+
+//[PUT] /courses/:id
+export function destroy(req, res, next) {
+    // res.json(req.params.id);
+    CourseModel.deleteOne({ _id: req.params.id })
+        .then(
+            course => {
+                res.redirect('back');
+            }
+        )
+        .catch(next);
+}
