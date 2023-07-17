@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import route from './routes/index.js'; // neeed to import full path
 import connect from './config/db/index.js';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,10 +35,16 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.engine('.hbs', engine({
     extname: '.hbs',
-    partialsDir: path.join(__dirname, '/resources/views/partials')
+    partialsDir: path.join(__dirname, '/resources/views/partials'),
+    helpers: {
+        sum: (a, b) => a + b
+    }
 }));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, '/resources/views'));
+
+// override with POST having ?_method=PUT
+app.use(methodOverride('_method'));
 
 route(app);
 // app.get('/', (req, res) => {

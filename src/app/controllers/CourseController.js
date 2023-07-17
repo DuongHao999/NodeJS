@@ -47,3 +47,29 @@ export function store(req, res, next) {
         });
     // res.send('saved');
 }
+
+// [GET] /courses/:id/edit
+export function edit(req, res, next) {
+    // console.log(req.params.id);
+    CourseModel.findById(req.params.id)
+        .then(
+            course => {
+                res.render('course/edit', { course: moongoseToObject(course) })
+                // console.log(course);
+            }
+        )
+        .catch(next);
+    // res.render('course/edit');
+}
+
+//[PUT] /courses/:id
+export function update(req, res, next) {
+    // res.json(req.params.id);
+    CourseModel.updateOne({ _id: req.params.id }, req.body)
+        .then(
+            course => {
+                res.redirect('/me/store/courses');
+            }
+        )
+        .catch(next);
+}

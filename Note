@@ -23,3 +23,8 @@ app.use(express.urlencoded({ extended: true })); // For URL-encoded bodies
 
 
 # Model phải chứa đầy đủ các field giống như DB, nếu không thì sẽ bị miss data
+
+
+#Thay đổi phương thức submit form 
+#// override with POST having ?_method=PUT
+app.use(methodOverride('_method'));

@@ -1,0 +1,28 @@
+<div class="mt-4">
+    <h3>Khóa Học Của Tôi</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên Khóa học</th>
+                <th scope="col">Thời gian tạo</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                {{!-- cách dùng hdb để set id field --}}
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="#" class="btn btn-link">Xóa</a>
+                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
