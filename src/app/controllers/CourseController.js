@@ -109,3 +109,23 @@ export function forceDelete(req, res, next) {
         )
         .catch(next);
 }
+
+//[POST] /courses/handle-form-actions
+export function handelFormActions(req, res, next) {
+    // res.json(req.body.courseIds);
+    switch (req.body.action) {
+        case 'delete': {
+            CourseModel.delete({ _id: { $in: req.body.courseIds } })
+                .then(
+                    () => {
+                        res.redirect('/me/store/courses');
+                    }
+                )
+                .catch(next);
+            break;
+        }
+        default: {
+            res.json('Action is invalid');
+        }
+    }
+}

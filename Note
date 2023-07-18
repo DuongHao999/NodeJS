@@ -28,3 +28,12 @@ app.use(express.urlencoded({ extended: true })); // For URL-encoded bodies
 #Thay đổi phương thức submit form 
 #// override with POST having ?_method=PUT
 app.use(methodOverride('_method'));
+
+
+# Để server nhận được các filed thì trong thẻ html cần thuộc tính name.
+    <select class="form-control form-control-sm checkbox-select-all-option" name="action">
+        <option value=""> -- Hành động --</option>
+        <option value="delete">Xóa</option>
+    </select>
+
+     <input type="checkbox" class="form-check-input" value={{this._id}} name="courseIds[]">

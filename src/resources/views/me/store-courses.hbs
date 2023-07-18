@@ -1,6 +1,21 @@
-<div class="mt-4">
+<form class="mt-4" name="container-form" method="POST" action="/courses/handle-form-actions">
     <h3>Khóa Học Của Tôi</h3>
     <a href="/me/trash/courses"> Thùng rác {{count}}</a>
+
+
+    <div class="mt-4 d-flex align-items-center">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="check-all">
+            <label class="form-check-label" for="check-all">Chọn tất cả</label>
+        </div>
+
+        <select class="form-control form-control-sm checkbox-select-all-option" name="action" required>
+            <option value=""> -- Hành động --</option>
+            <option value="delete">Xóa</option>
+        </select>
+        <button class="btn btn-primary btn-sm btn-submit disabled"> Thực Hiện </button>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -13,6 +28,11 @@
         <tbody>
             {{#each courses}}
             <tr>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" value={{this._id}} name="courseIds[]">
+                    </div>
+                </td>
                 {{!-- cách dùng hdb để set id field --}}
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
@@ -32,7 +52,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- Modal cho khi bấm xóa --}}
 <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
@@ -62,7 +82,11 @@
     window.addEventListener("DOMContentLoaded", (event) => {
         var courseId;
         var deleteForm = $('form[name="delete-form"]');
-        console.log(deleteForm);
+        var courseCheckboxes = $('input[name="courseIds[]"]');
+        var checkAll = $('#check-all');
+        var submitBtn = $('.btn-submit');
+        var containerForm = $('form[name="container-form"]');
+        //console.log(deleteForm)
 
         $('#delete-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -71,10 +95,82 @@
 
         $('#btn-delete').on('click', function () {
             deleteForm.attr('action', `/courses/${courseId}?_method=DELETE`);
-            deleteForm.submit(); s
+            deleteForm.submit();
         });
 
+        /* check all change*/
+        checkAll.change(function (event) {
+            var isCheck = $('#check-all').is(':checked');
+            //console.log(isCheck);
 
+            $('input[name="courseIds[]"]').prop('checked', isCheck);
+
+            /* SET CHECK ON ALL CHECK BOX C2:
+            if (isCheck) {
+                $('input[name="courseIds[]"]').prop('checked', true);
+            } else {
+                $('input[name="courseIds[]"]').prop('checked', false);
+            } */
+
+            renderButton();
+        });
+
+        // HANDEL WHEN CHECK ON ALL CHECK BOX => CHECK ALL WILL BE CHECKED
+        courseCheckboxes.change(() => {
+            //console.log(123);
+
+            // get number check boxes is checked
+            var isCheck = $('input[name="courseIds[]"]:checked').length === courseCheckboxes.length;
+            checkAll.prop('checked', isCheck);
+
+            /*
+                var count = $('input[name="courseIds[]"]:checked').length;
+                var dem = courseCheckboxes.length;
+                if (dem === count) {
+                    checkAll.prop('checked', true);
+                } else {
+                    checkAll.prop('checked', false);
+                }
+                //console.log(dem);
+            */
+
+            renderButton();
+        })
+
+        function renderButton() {
+            //ENABLE BUTTON WHEN HAVING AT LEAST ON CHECKBOX IS CHECKED
+            if ($('input[name="courseIds[]"]:checked').length) {
+                $('.btn-submit').removeClass('disabled');
+
+            } else {
+                $('.btn-submit').addClass('disabled');
+            }
+        }
+
+        //HANDLE CLICK SUBMIT BUTTON
+        /*  submitBtn.click(function (event) { // sự kiện submit bằng JS không thể check diều kiện require của form
+              event.preventDefault();
+              //console.log($(this));
+              var isSubmittable = $(this).hasClass('disabled');
+  
+              // CHECK IF BUTTON IS DISABLE OR NOT
+              if (!isSubmittable) {
+                  containerForm.submit();
+              }
+          })*/
+
+        submitBtn.on('submit', function (event) { // sự kiện submit bằng JS không thể check diều kiện require của form
+            var isSubmittable = $(this).hasClass('disabled');
+            // CHECK IF BUTTON IS DISABLE OR NOT
+            /*
+            if (!isSubmittable) {
+                event.preventDefault();
+            }*/
+        })
+
+
+        /*console.log($('#check-all'));
+        console.log($('input[name="courseIds[]"]'));*/
 
     });
 </script>

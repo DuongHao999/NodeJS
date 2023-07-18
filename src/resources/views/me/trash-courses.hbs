@@ -6,7 +6,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tên Khóa học</th>
-                <th scope="col">Thời gian tạo</th>
+                <th scope="col">Thời gian xóa</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
                 {{!-- cách dùng hdb để set id field --}}
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
-                <td>{{this.createdAt}}</td>
+                <td>{{this.deletedAt}}</td>
                 <td>
                     <a href="" class="btn btn-link restore-btn" data-id={{this._id}}>Khôi
                         phục</a>
