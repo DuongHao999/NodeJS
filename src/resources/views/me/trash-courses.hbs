@@ -1,6 +1,6 @@
 <div class="mt-4">
-    <h3>Khóa Học Của Tôi</h3>
-    <a href="/me/trash/courses"> Thùng rác</a>
+    <h3>Khóa Học Đã Xóa</h3>
+    <a href="/me/store/courses"> Danh sách khóa học</a>
     <table class="table">
         <thead>
             <tr>
@@ -18,15 +18,16 @@
                 <td>{{this.name}}</td>
                 <td>{{this.createdAt}}</td>
                 <td>
+                    <a href="" class="btn btn-link restore-btn" data-id={{this._id}}>Khôi
+                        phục</a>
                     <a href="#" class="btn btn-link" data-toggle="modal" data-target="#delete-modal"
-                        data-id={{this._id}}>Xóa</a>
-                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+                        data-id={{this._id}}>Xóa Vĩnh Viễn</a>
                 </td>
             </tr>
             {{else}}
             <tr>
-                <td colspan="4" style="text-align: center;">Bạn chưa đăng khóa học nào.
-                    <a href="/courses/create"> Tạo khóa học</a>
+                <td colspan="4">Bạn không có khóa học nào đã xóa.
+                    <a href="/me/store/courses"> Danh sách khóa học</a>
                 </td>
             </tr>
             {{/each}}
@@ -58,11 +59,15 @@
 {{!-- form ẩn để thuwch hiện việc submit đến 1 url xóa --}}
 <form name="delete-form" method="POST"></form>
 
+<form name="restore-form" method="POST"></form>
+
 <script>
     window.addEventListener("DOMContentLoaded", (event) => {
         var courseId;
         var deleteForm = $('form[name="delete-form"]');
-        console.log(deleteForm);
+        var restoreForm = $('form[name="restore-form"]');
+
+        //console.log(deleteForm);
 
         $('#delete-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -70,10 +75,17 @@
         });
 
         $('#btn-delete').on('click', function () {
-            deleteForm.attr('action', `/courses/${courseId}?_method=DELETE`);
-            deleteForm.submit(); s
+            deleteForm.attr('action', `/courses/${courseId}/force?_method=DELETE`);
+            deleteForm.submit();
         });
 
+        $('.restore-btn').on('click', function (e) {
+            e.preventDefault();
+            courseId = $(this).data('id'); // lấy ra cái id của thằng mới được click 
+            console.log(courseId);
+            restoreForm.attr('action', `/courses/${courseId}/restore?_method=PATCH`);
+            restoreForm.submit();
+        });
 
 
     });

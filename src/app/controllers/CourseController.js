@@ -74,8 +74,32 @@ export function update(req, res, next) {
         .catch(next);
 }
 
-//[PUT] /courses/:id
+//[PATCH] /courses/:id/restore
+export function restore(req, res, next) {
+    // res.json(req.params.id);
+    CourseModel.restore({ _id: req.params.id })
+        .then(
+            course => {
+                res.redirect('back');
+            }
+        )
+        .catch(next);
+}
+
+//[DELETE] /courses/:id
 export function destroy(req, res, next) {
+    // res.json(req.params.id);
+    CourseModel.delete({ _id: req.params.id })
+        .then(
+            course => {
+                res.redirect('back');
+            }
+        )
+        .catch(next);
+}
+
+//[DELETE] /courses/:id/force
+export function forceDelete(req, res, next) {
     // res.json(req.params.id);
     CourseModel.deleteOne({ _id: req.params.id })
         .then(

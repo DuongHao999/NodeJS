@@ -13,3 +13,16 @@ export function storeCourses(req, res, next) {
         )
         .catch(next);
 }
+
+//  [GET] /me/trash/courses
+export function trashCourses(req, res, next) {
+
+    CourseModel.findDeleted()
+        .then(
+            courses => {
+                // res.json(courses);
+                res.render('me/trash-courses', { courses: multipleMoongoseToObject(courses) });
+            }
+        )
+        .catch(next);
+}
