@@ -13,7 +13,7 @@
             <option value=""> -- Hành động --</option>
             <option value="delete">Xóa</option>
         </select>
-        <button class="btn btn-primary btn-sm btn-submit disabled"> Thực Hiện </button>
+        <button class="btn btn-primary btn-sm btn-submit" disabled="disabled"> Thực Hiện </button>
     </div>
 
     <table class="table">
@@ -140,10 +140,10 @@
         function renderButton() {
             //ENABLE BUTTON WHEN HAVING AT LEAST ON CHECKBOX IS CHECKED
             if ($('input[name="courseIds[]"]:checked').length) {
-                $('.btn-submit').removeClass('disabled');
+                $('.btn-submit').attr('disabled', false);
 
             } else {
-                $('.btn-submit').addClass('disabled');
+                $('.btn-submit').attr('disabled', true);
             }
         }
 
@@ -159,8 +159,8 @@
               }
           })*/
 
-        submitBtn.on('submit', function (event) { // sự kiện submit bằng JS không thể check diều kiện require của form
-            var isSubmittable = $(this).hasClass('disabled');
+        containerForm.on('submit', function (event) { // sự kiện submit bằng JS không thể check diều kiện require của form
+            var isSubmittable = submitBtn.hasClass('disabled');
             // CHECK IF BUTTON IS DISABLE OR NOT
             /*
             if (!isSubmittable) {
